@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# 2022 Benjamin J Perry and Steph Waller - Attribution-NonCommercial-ShareAlike 4.0 International
+# (CC BY-NC-SA 4.0)
+# Version: 1.1
+# Maintainer: Benjamin J Perry
+# Email: benjamin.perry@otago.ac.nz
+# Status: Functional
+
+# Update bash profile with:
+# nano {~/.bash_profile | ~/.bashrc}
+# export PATH="/Users/bjp/Users/bjp/projects/Phyre2BatchPrep/src:$PATH"
+# CONTRL+x
+# y
+# ENTER
+
+clear
+sleep 1
+printf "Starting Phyre2Prep pipeline...\n\n"
+printf "Begin Execution at: $(date)\n\n"
+printf "Usage: Phyre2Prep SUMMARYTABLE.txt CONTIGS.fasta LENGTH\n\n"
+sleep 1
+
+if [ "$1" == "" ]; then
+  printf "Error: No command line arguments given.\n\n"
+  printf "Usage: Phyre2Prep.sh SUMMARYTABLE.txt CONTIGS.fasta LENGTH\n\n"
+	exit 1
+fi
+
+# Get command line arguments for input virus summary table and fasta sequences
+ SUMMARYTABLE=$1
+ CONTIGSFILE=$2 
+ LENGTH=$3
+ 
+# Pass input files to PhyrePrep.R for filtering
+# NOTE: May need to change the path to Rscript
+printf "Running contigs length filtering at a minimum of 1000 bp.\n\n"
+
+ContigsFilter.R $SUMMARYTABLE $CONTIGSFILE &&
+
+printf "\nCompleted contigs length filtering.\n\n"
+
+printf "Total contigs greater than 1000 bp =$(grep -e ">" filtered.trinity.len.1000.contigs.fasta | wc -l).\n\n"
+# Pass filtered contigs to getORF for final length filtering and translations
+
+#getorf -minsize $LENGTH -outseq proteins.minsize.1000.faa -sequence filtered.trinity.len.1000.contigs.fasta
+printf "Running getORF translation with minimum length = $LENGTH.\n\n"
+
+OUTPUT=proteins.minsize.$LENGTH.faa
+getORF.sh filtered.trinity.len.1000.contigs.fasta $OUTPUT $LENGTH &&
+
+printf "\nCompleted getORF translation.\n\n"
+printf "Total amino acid sequences =$(grep -e ">" $OUTPUT | wc -l).\n\n"
+
+# Split the translated contigs into batchs of 100 proteins
+
+awk 'BEGIN {n_seq=0;} /^>/ {if(n_seq%100==0){file=sprintf("Phyre2Batch%d.fa",n_seq);} print >> file; n_seq++; next;} { print >> file; }' < $OUTPUT
+
+printf "Thank you for using our awesome Phyre2 bath submission prep tool XD, K bye.\n\n\n")
