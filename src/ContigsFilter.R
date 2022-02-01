@@ -1,10 +1,10 @@
 #!/usr/bin/env Rscript
 # 2022 Benjamin J Perry & Steph Waller - Attribution-NonCommercial-ShareAlike 4.0 International
 # (CC BY-NC-SA 4.0)
-# Version: 1.0.0
+# Version: 1.1
 # Maintainer: Benjamin J Perry
 # Email: benjamin.perry@otago.ac.nz
-# Status: Development
+# Status: Functional
 
 # Description: This script takes and assembly from trinity and the virust summary out put table,
 # it filters for contigs with no BLAST results and a minimum lenght and writes the corresponding
