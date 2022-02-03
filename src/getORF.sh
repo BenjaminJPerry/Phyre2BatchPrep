@@ -39,4 +39,4 @@ CONTIGS=$1
 PROTEINS=$2
 LENGTH=$3
 
-getorf -minsize $LENGTH -outseq $PROTEINS -sequence $CONTIGS
+getorf -methionine No -maxsize ######## -minsize $LENGTH -outseq $PROTEINS -sequence $CONTIGS
