@@ -1,4 +1,4 @@
-#!/usr/bin/env Rscript
+#!/usr/bin/Rscript
 # 2022 Benjamin J Perry & Steph Waller - Attribution-NonCommercial-ShareAlike 4.0 International
 # (CC BY-NC-SA 4.0)
 # Version: 1.1
@@ -13,13 +13,13 @@
 # Usage: phyrePrep -in summary.txt -fast trinity.fasta -min 1000 -max 1200
 
 # Import libraries that we need
-if (!require("BiocManager", quietly = TRUE))
-        install.packages("BiocManager")
+#if (!require("BiocManager", quietly = TRUE))
+#        install.packages("BiocManager")
+#
+#BiocManager::install("Biostrings")
 
-BiocManager::install("Biostrings")
-
-library(tidyverse) # dataframe manipution and IO
-library(Biostrings) # https://bioconductor.org/packages/release/bioc/html/Biostrings.html
+#library(tidyverse) # dataframe manipution and IO
+#library(Biostrings) # https://bioconductor.org/packages/release/bioc/html/Biostrings.html
 
 # Parse arg
 args = commandArgs(trailingOnly=TRUE)
