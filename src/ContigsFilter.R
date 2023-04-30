@@ -49,7 +49,7 @@ trinityContigs <- readDNAStringSet(filepath = fastFileIn,
 # Filter the virus summary table for entries:
 # 1. which have NO BLAST results
 # 2. have length >= minSize
-filteredVirusTable <- virusTable %>% filter(is.na(X7) & is.na(X13) & is.na(X17)) %>% filter(X3 >= minSize)
+filteredVirusTable <- virusTable %>% filter(is.na(X7) & is.na(X13) & is.na(X20)) %>% filter(X3 >= minSize)
 
 # extract contigs names from filteres virus summary table
 filteredContigsNames <- filteredVirusTable$X2
