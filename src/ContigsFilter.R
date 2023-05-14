@@ -1,4 +1,4 @@
-#!/usr/bin/env Rscript
+#!/usr/bin/Rscript
 # 2022 Benjamin J Perry & Steph Waller - Attribution-NonCommercial-ShareAlike 4.0 International
 # (CC BY-NC-SA 4.0)
 # Version: 1.1
@@ -10,13 +10,13 @@
 # it filters for contigs with no BLAST results and a minimum lenght and writes the corresponding
 # contigs into a new file for translation prior to Phyre2 analysis.
 
-# Usage: phyrePrep -in summary.txt -fast trinity.fasta -min 1000 -max 1200
+# Usage: ContigsFilter.R -in summary.txt -fast trinity.fasta
 
 # Import libraries that we need
-if (!require("BiocManager", quietly = TRUE))
-        install.packages("BiocManager")
-
-BiocManager::install("Biostrings")
+#if (!require("BiocManager", quietly = TRUE))
+#        install.packages("BiocManager")
+#
+#BiocManager::install("Biostrings")
 
 library(tidyverse) # dataframe manipution and IO
 library(Biostrings) # https://bioconductor.org/packages/release/bioc/html/Biostrings.html
@@ -30,6 +30,8 @@ if (length(args)==0) {
 minSize = 1000
 virusTableIn <- args[1]
 fastFileIn <- args[2]
+# CLength <- args[3]
+
 # TODO : implement minSize variable in the output file name.
 
 outputFile <- "filtered.trinity.len.1000.contigs.fasta"
